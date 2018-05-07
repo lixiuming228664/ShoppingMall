@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdut.mapper.ProductParamMapper" >
+  <resultMap id="BaseResultMap" type="com.sdut.pojo.ProductParam" >
+    <id column="product_param_id" property="productParamId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_param_key" property="productParamKey" jdbcType="VARCHAR" />
+    <result column="product_param_value" property="productParamValue" jdbcType="VARCHAR" />
+    <result column="product_param_create_time" property="productParamCreateTime" jdbcType="TIMESTAMP" />
+    <result column="product_param_update_time" property="productParamUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="product_param_is_del" property="productParamIsDel" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    product_param_id, product_id, product_param_key, product_param_value, product_param_create_time, 
+    product_param_update_time, product_param_is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sdut.pojo.ProductParamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_param
+    where product_param_id = #{productParamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_param
+    where product_param_id = #{productParamId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sdut.pojo.ProductParamExample" >
+    delete from product_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sdut.pojo.ProductParam" >
+    insert into product_param (product_param_id, product_id, product_param_key, 
+      product_param_value, product_param_create_time, 
+      product_param_update_time, product_param_is_del
+      )
+    values (#{productParamId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{productParamKey,jdbcType=VARCHAR}, 
+      #{productParamValue,jdbcType=VARCHAR}, #{productParamCreateTime,jdbcType=TIMESTAMP}, 
+      #{productParamUpdateTime,jdbcType=TIMESTAMP}, #{productParamIsDel,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sdut.pojo.ProductParam" >
+    insert into product_param
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productParamId != null" >
+        product_param_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productParamKey != null" >
+        product_param_key,
+      </if>
+      <if test="productParamValue != null" >
+        product_param_value,
+      </if>
+      <if test="productParamCreateTime != null" >
+        product_param_create_time,
+      </if>
+      <if test="productParamUpdateTime != null" >
+        product_param_update_time,
+      </if>
+      <if test="productParamIsDel != null" >
+        product_param_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productParamId != null" >
+        #{productParamId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productParamKey != null" >
+        #{productParamKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productParamValue != null" >
+        #{productParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="productParamCreateTime != null" >
+        #{productParamCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productParamUpdateTime != null" >
+        #{productParamUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productParamIsDel != null" >
+        #{productParamIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sdut.pojo.ProductParamExample" resultType="java.lang.Integer" >
+    select count(*) from product_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product_param
+    <set >
+      <if test="record.productParamId != null" >
+        product_param_id = #{record.productParamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productParamKey != null" >
+        product_param_key = #{record.productParamKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productParamValue != null" >
+        product_param_value = #{record.productParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productParamCreateTime != null" >
+        product_param_create_time = #{record.productParamCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productParamUpdateTime != null" >
+        product_param_update_time = #{record.productParamUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productParamIsDel != null" >
+        product_param_is_del = #{record.productParamIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product_param
+    set product_param_id = #{record.productParamId,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      product_param_key = #{record.productParamKey,jdbcType=VARCHAR},
+      product_param_value = #{record.productParamValue,jdbcType=VARCHAR},
+      product_param_create_time = #{record.productParamCreateTime,jdbcType=TIMESTAMP},
+      product_param_update_time = #{record.productParamUpdateTime,jdbcType=TIMESTAMP},
+      product_param_is_del = #{record.productParamIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sdut.pojo.ProductParam" >
+    update product_param
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productParamKey != null" >
+        product_param_key = #{productParamKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productParamValue != null" >
+        product_param_value = #{productParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="productParamCreateTime != null" >
+        product_param_create_time = #{productParamCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productParamUpdateTime != null" >
+        product_param_update_time = #{productParamUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productParamIsDel != null" >
+        product_param_is_del = #{productParamIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where product_param_id = #{productParamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sdut.pojo.ProductParam" >
+    update product_param
+    set product_id = #{productId,jdbcType=INTEGER},
+      product_param_key = #{productParamKey,jdbcType=VARCHAR},
+      product_param_value = #{productParamValue,jdbcType=VARCHAR},
+      product_param_create_time = #{productParamCreateTime,jdbcType=TIMESTAMP},
+      product_param_update_time = #{productParamUpdateTime,jdbcType=TIMESTAMP},
+      product_param_is_del = #{productParamIsDel,jdbcType=TINYINT}
+    where product_param_id = #{productParamId,jdbcType=INTEGER}
+  </update>
+</mapper>

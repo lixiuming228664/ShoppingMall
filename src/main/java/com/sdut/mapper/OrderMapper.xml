@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdut.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.sdut.pojo.Order" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_user_id" property="orderUserId" jdbcType="INTEGER" />
+    <result column="order_user_path_id" property="orderUserPathId" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="order_state" property="orderState" jdbcType="TINYINT" />
+    <result column="order_sum_price" property="orderSumPrice" jdbcType="DOUBLE" />
+    <result column="order_create_time" property="orderCreateTime" jdbcType="TIMESTAMP" />
+    <result column="order_update_time" property="orderUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="order_is_del" property="orderIsDel" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, order_user_id, order_user_path_id, order_number, order_state, order_sum_price, 
+    order_create_time, order_update_time, order_is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sdut.pojo.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sdut.pojo.OrderExample" >
+    delete from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sdut.pojo.Order" >
+    insert into order (order_id, order_user_id, order_user_path_id, 
+      order_number, order_state, order_sum_price, 
+      order_create_time, order_update_time, order_is_del
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{orderUserId,jdbcType=INTEGER}, #{orderUserPathId,jdbcType=INTEGER}, 
+      #{orderNumber,jdbcType=VARCHAR}, #{orderState,jdbcType=TINYINT}, #{orderSumPrice,jdbcType=DOUBLE}, 
+      #{orderCreateTime,jdbcType=TIMESTAMP}, #{orderUpdateTime,jdbcType=TIMESTAMP}, #{orderIsDel,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sdut.pojo.Order" >
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderUserId != null" >
+        order_user_id,
+      </if>
+      <if test="orderUserPathId != null" >
+        order_user_path_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="orderSumPrice != null" >
+        order_sum_price,
+      </if>
+      <if test="orderCreateTime != null" >
+        order_create_time,
+      </if>
+      <if test="orderUpdateTime != null" >
+        order_update_time,
+      </if>
+      <if test="orderIsDel != null" >
+        order_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserId != null" >
+        #{orderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserPathId != null" >
+        #{orderUserPathId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=TINYINT},
+      </if>
+      <if test="orderSumPrice != null" >
+        #{orderSumPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderCreateTime != null" >
+        #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderUpdateTime != null" >
+        #{orderUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderIsDel != null" >
+        #{orderIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sdut.pojo.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderUserId != null" >
+        order_user_id = #{record.orderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderUserPathId != null" >
+        order_user_path_id = #{record.orderUserPathId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNumber != null" >
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderState != null" >
+        order_state = #{record.orderState,jdbcType=TINYINT},
+      </if>
+      <if test="record.orderSumPrice != null" >
+        order_sum_price = #{record.orderSumPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderCreateTime != null" >
+        order_create_time = #{record.orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderUpdateTime != null" >
+        order_update_time = #{record.orderUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderIsDel != null" >
+        order_is_del = #{record.orderIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      order_user_id = #{record.orderUserId,jdbcType=INTEGER},
+      order_user_path_id = #{record.orderUserPathId,jdbcType=INTEGER},
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      order_state = #{record.orderState,jdbcType=TINYINT},
+      order_sum_price = #{record.orderSumPrice,jdbcType=DOUBLE},
+      order_create_time = #{record.orderCreateTime,jdbcType=TIMESTAMP},
+      order_update_time = #{record.orderUpdateTime,jdbcType=TIMESTAMP},
+      order_is_del = #{record.orderIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sdut.pojo.Order" >
+    update order
+    <set >
+      <if test="orderUserId != null" >
+        order_user_id = #{orderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="orderUserPathId != null" >
+        order_user_path_id = #{orderUserPathId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=TINYINT},
+      </if>
+      <if test="orderSumPrice != null" >
+        order_sum_price = #{orderSumPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderCreateTime != null" >
+        order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderUpdateTime != null" >
+        order_update_time = #{orderUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderIsDel != null" >
+        order_is_del = #{orderIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sdut.pojo.Order" >
+    update order
+    set order_user_id = #{orderUserId,jdbcType=INTEGER},
+      order_user_path_id = #{orderUserPathId,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=TINYINT},
+      order_sum_price = #{orderSumPrice,jdbcType=DOUBLE},
+      order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      order_update_time = #{orderUpdateTime,jdbcType=TIMESTAMP},
+      order_is_del = #{orderIsDel,jdbcType=TINYINT}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

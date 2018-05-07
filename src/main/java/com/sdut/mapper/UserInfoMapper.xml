@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdut.mapper.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sdut.pojo.UserInfo" >
+    <id column="user_info_id" property="userInfoId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_idcardno" property="userIdcardno" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_credit_card" property="userCreditCard" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="TINYINT" />
+    <result column="user_info_create_time" property="userInfoCreateTime" jdbcType="TIMESTAMP" />
+    <result column="user_info_update_time" property="userInfoUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="user_info_is_del" property="userInfoIsDel" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_info_id, user_id, user_idcardno, user_name, user_credit_card, user_sex, user_info_create_time, 
+    user_info_update_time, user_info_is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sdut.pojo.UserInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_info_id = #{userInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info
+    where user_info_id = #{userInfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sdut.pojo.UserInfoExample" >
+    delete from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sdut.pojo.UserInfo" >
+    insert into user_info (user_info_id, user_id, user_idcardno, 
+      user_name, user_credit_card, user_sex, 
+      user_info_create_time, user_info_update_time, 
+      user_info_is_del)
+    values (#{userInfoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userIdcardno,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userCreditCard,jdbcType=VARCHAR}, #{userSex,jdbcType=TINYINT}, 
+      #{userInfoCreateTime,jdbcType=TIMESTAMP}, #{userInfoUpdateTime,jdbcType=TIMESTAMP}, 
+      #{userInfoIsDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sdut.pojo.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userIdcardno != null" >
+        user_idcardno,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userCreditCard != null" >
+        user_credit_card,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userInfoCreateTime != null" >
+        user_info_create_time,
+      </if>
+      <if test="userInfoUpdateTime != null" >
+        user_info_update_time,
+      </if>
+      <if test="userInfoIsDel != null" >
+        user_info_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userIdcardno != null" >
+        #{userIdcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreditCard != null" >
+        #{userCreditCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="userInfoCreateTime != null" >
+        #{userInfoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userInfoUpdateTime != null" >
+        #{userInfoUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userInfoIsDel != null" >
+        #{userInfoIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sdut.pojo.UserInfoExample" resultType="java.lang.Integer" >
+    select count(*) from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_info
+    <set >
+      <if test="record.userInfoId != null" >
+        user_info_id = #{record.userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userIdcardno != null" >
+        user_idcardno = #{record.userIdcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCreditCard != null" >
+        user_credit_card = #{record.userCreditCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null" >
+        user_sex = #{record.userSex,jdbcType=TINYINT},
+      </if>
+      <if test="record.userInfoCreateTime != null" >
+        user_info_create_time = #{record.userInfoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userInfoUpdateTime != null" >
+        user_info_update_time = #{record.userInfoUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userInfoIsDel != null" >
+        user_info_is_del = #{record.userInfoIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_info
+    set user_info_id = #{record.userInfoId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_idcardno = #{record.userIdcardno,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_credit_card = #{record.userCreditCard,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=TINYINT},
+      user_info_create_time = #{record.userInfoCreateTime,jdbcType=TIMESTAMP},
+      user_info_update_time = #{record.userInfoUpdateTime,jdbcType=TIMESTAMP},
+      user_info_is_del = #{record.userInfoIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sdut.pojo.UserInfo" >
+    update user_info
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userIdcardno != null" >
+        user_idcardno = #{userIdcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreditCard != null" >
+        user_credit_card = #{userCreditCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="userInfoCreateTime != null" >
+        user_info_create_time = #{userInfoCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userInfoUpdateTime != null" >
+        user_info_update_time = #{userInfoUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userInfoIsDel != null" >
+        user_info_is_del = #{userInfoIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_info_id = #{userInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sdut.pojo.UserInfo" >
+    update user_info
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_idcardno = #{userIdcardno,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_credit_card = #{userCreditCard,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=TINYINT},
+      user_info_create_time = #{userInfoCreateTime,jdbcType=TIMESTAMP},
+      user_info_update_time = #{userInfoUpdateTime,jdbcType=TIMESTAMP},
+      user_info_is_del = #{userInfoIsDel,jdbcType=TINYINT}
+    where user_info_id = #{userInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

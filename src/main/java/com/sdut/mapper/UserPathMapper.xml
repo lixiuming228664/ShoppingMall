@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdut.mapper.UserPathMapper" >
+  <resultMap id="BaseResultMap" type="com.sdut.pojo.UserPath" >
+    <id column="user_path_id" property="userPathId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_path_province" property="userPathProvince" jdbcType="VARCHAR" />
+    <result column="user_path_city" property="userPathCity" jdbcType="VARCHAR" />
+    <result column="user_path_district" property="userPathDistrict" jdbcType="VARCHAR" />
+    <result column="user_path_detail" property="userPathDetail" jdbcType="VARCHAR" />
+    <result column="user_path_postcode" property="userPathPostcode" jdbcType="VARCHAR" />
+    <result column="user_path_create_time" property="userPathCreateTime" jdbcType="TIMESTAMP" />
+    <result column="user_path_update_time" property="userPathUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="user_path_state" property="userPathState" jdbcType="TINYINT" />
+    <result column="user_path_is_del" property="userPathIsDel" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_path_id, user_id, user_path_province, user_path_city, user_path_district, user_path_detail, 
+    user_path_postcode, user_path_create_time, user_path_update_time, user_path_state, 
+    user_path_is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sdut.pojo.UserPathExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_path
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_path
+    where user_path_id = #{userPathId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_path
+    where user_path_id = #{userPathId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sdut.pojo.UserPathExample" >
+    delete from user_path
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sdut.pojo.UserPath" >
+    insert into user_path (user_path_id, user_id, user_path_province, 
+      user_path_city, user_path_district, user_path_detail, 
+      user_path_postcode, user_path_create_time, 
+      user_path_update_time, user_path_state, user_path_is_del
+      )
+    values (#{userPathId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userPathProvince,jdbcType=VARCHAR}, 
+      #{userPathCity,jdbcType=VARCHAR}, #{userPathDistrict,jdbcType=VARCHAR}, #{userPathDetail,jdbcType=VARCHAR}, 
+      #{userPathPostcode,jdbcType=VARCHAR}, #{userPathCreateTime,jdbcType=TIMESTAMP}, 
+      #{userPathUpdateTime,jdbcType=TIMESTAMP}, #{userPathState,jdbcType=TINYINT}, #{userPathIsDel,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sdut.pojo.UserPath" >
+    insert into user_path
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userPathId != null" >
+        user_path_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userPathProvince != null" >
+        user_path_province,
+      </if>
+      <if test="userPathCity != null" >
+        user_path_city,
+      </if>
+      <if test="userPathDistrict != null" >
+        user_path_district,
+      </if>
+      <if test="userPathDetail != null" >
+        user_path_detail,
+      </if>
+      <if test="userPathPostcode != null" >
+        user_path_postcode,
+      </if>
+      <if test="userPathCreateTime != null" >
+        user_path_create_time,
+      </if>
+      <if test="userPathUpdateTime != null" >
+        user_path_update_time,
+      </if>
+      <if test="userPathState != null" >
+        user_path_state,
+      </if>
+      <if test="userPathIsDel != null" >
+        user_path_is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userPathId != null" >
+        #{userPathId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userPathProvince != null" >
+        #{userPathProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathCity != null" >
+        #{userPathCity,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathDistrict != null" >
+        #{userPathDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathDetail != null" >
+        #{userPathDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathPostcode != null" >
+        #{userPathPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathCreateTime != null" >
+        #{userPathCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPathUpdateTime != null" >
+        #{userPathUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPathState != null" >
+        #{userPathState,jdbcType=TINYINT},
+      </if>
+      <if test="userPathIsDel != null" >
+        #{userPathIsDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sdut.pojo.UserPathExample" resultType="java.lang.Integer" >
+    select count(*) from user_path
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_path
+    <set >
+      <if test="record.userPathId != null" >
+        user_path_id = #{record.userPathId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userPathProvince != null" >
+        user_path_province = #{record.userPathProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPathCity != null" >
+        user_path_city = #{record.userPathCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPathDistrict != null" >
+        user_path_district = #{record.userPathDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPathDetail != null" >
+        user_path_detail = #{record.userPathDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPathPostcode != null" >
+        user_path_postcode = #{record.userPathPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPathCreateTime != null" >
+        user_path_create_time = #{record.userPathCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userPathUpdateTime != null" >
+        user_path_update_time = #{record.userPathUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userPathState != null" >
+        user_path_state = #{record.userPathState,jdbcType=TINYINT},
+      </if>
+      <if test="record.userPathIsDel != null" >
+        user_path_is_del = #{record.userPathIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_path
+    set user_path_id = #{record.userPathId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_path_province = #{record.userPathProvince,jdbcType=VARCHAR},
+      user_path_city = #{record.userPathCity,jdbcType=VARCHAR},
+      user_path_district = #{record.userPathDistrict,jdbcType=VARCHAR},
+      user_path_detail = #{record.userPathDetail,jdbcType=VARCHAR},
+      user_path_postcode = #{record.userPathPostcode,jdbcType=VARCHAR},
+      user_path_create_time = #{record.userPathCreateTime,jdbcType=TIMESTAMP},
+      user_path_update_time = #{record.userPathUpdateTime,jdbcType=TIMESTAMP},
+      user_path_state = #{record.userPathState,jdbcType=TINYINT},
+      user_path_is_del = #{record.userPathIsDel,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sdut.pojo.UserPath" >
+    update user_path
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userPathProvince != null" >
+        user_path_province = #{userPathProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathCity != null" >
+        user_path_city = #{userPathCity,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathDistrict != null" >
+        user_path_district = #{userPathDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathDetail != null" >
+        user_path_detail = #{userPathDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathPostcode != null" >
+        user_path_postcode = #{userPathPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="userPathCreateTime != null" >
+        user_path_create_time = #{userPathCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPathUpdateTime != null" >
+        user_path_update_time = #{userPathUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPathState != null" >
+        user_path_state = #{userPathState,jdbcType=TINYINT},
+      </if>
+      <if test="userPathIsDel != null" >
+        user_path_is_del = #{userPathIsDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_path_id = #{userPathId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sdut.pojo.UserPath" >
+    update user_path
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_path_province = #{userPathProvince,jdbcType=VARCHAR},
+      user_path_city = #{userPathCity,jdbcType=VARCHAR},
+      user_path_district = #{userPathDistrict,jdbcType=VARCHAR},
+      user_path_detail = #{userPathDetail,jdbcType=VARCHAR},
+      user_path_postcode = #{userPathPostcode,jdbcType=VARCHAR},
+      user_path_create_time = #{userPathCreateTime,jdbcType=TIMESTAMP},
+      user_path_update_time = #{userPathUpdateTime,jdbcType=TIMESTAMP},
+      user_path_state = #{userPathState,jdbcType=TINYINT},
+      user_path_is_del = #{userPathIsDel,jdbcType=TINYINT}
+    where user_path_id = #{userPathId,jdbcType=INTEGER}
+  </update>
+</mapper>

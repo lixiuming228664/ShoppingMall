@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdut.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.sdut.pojo.Product" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_price" property="productPrice" jdbcType="DOUBLE" />
+    <result column="product_count" property="productCount" jdbcType="INTEGER" />
+    <result column="product_state" property="productState" jdbcType="TINYINT" />
+    <result column="product_is_del" property="productIsDel" jdbcType="TINYINT" />
+    <result column="product_type_id" property="productTypeId" jdbcType="TINYINT" />
+    <result column="product_create_time" property="productCreateTime" jdbcType="TIMESTAMP" />
+    <result column="product_update_time" property="productUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="product_images" property="productImages" jdbcType="VARCHAR" />
+    <result column="product_warehouse" property="productWarehouse" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    product_id, product_name, product_price, product_count, product_state, product_is_del, 
+    product_type_id, product_create_time, product_update_time, product_images, product_warehouse
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sdut.pojo.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sdut.pojo.ProductExample" >
+    delete from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sdut.pojo.Product" >
+    insert into product (product_id, product_name, product_price, 
+      product_count, product_state, product_is_del, 
+      product_type_id, product_create_time, product_update_time, 
+      product_images, product_warehouse)
+    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=DOUBLE}, 
+      #{productCount,jdbcType=INTEGER}, #{productState,jdbcType=TINYINT}, #{productIsDel,jdbcType=TINYINT}, 
+      #{productTypeId,jdbcType=TINYINT}, #{productCreateTime,jdbcType=TIMESTAMP}, #{productUpdateTime,jdbcType=TIMESTAMP}, 
+      #{productImages,jdbcType=VARCHAR}, #{productWarehouse,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sdut.pojo.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productPrice != null" >
+        product_price,
+      </if>
+      <if test="productCount != null" >
+        product_count,
+      </if>
+      <if test="productState != null" >
+        product_state,
+      </if>
+      <if test="productIsDel != null" >
+        product_is_del,
+      </if>
+      <if test="productTypeId != null" >
+        product_type_id,
+      </if>
+      <if test="productCreateTime != null" >
+        product_create_time,
+      </if>
+      <if test="productUpdateTime != null" >
+        product_update_time,
+      </if>
+      <if test="productImages != null" >
+        product_images,
+      </if>
+      <if test="productWarehouse != null" >
+        product_warehouse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null" >
+        #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productCount != null" >
+        #{productCount,jdbcType=INTEGER},
+      </if>
+      <if test="productState != null" >
+        #{productState,jdbcType=TINYINT},
+      </if>
+      <if test="productIsDel != null" >
+        #{productIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="productTypeId != null" >
+        #{productTypeId,jdbcType=TINYINT},
+      </if>
+      <if test="productCreateTime != null" >
+        #{productCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productUpdateTime != null" >
+        #{productUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productImages != null" >
+        #{productImages,jdbcType=VARCHAR},
+      </if>
+      <if test="productWarehouse != null" >
+        #{productWarehouse,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sdut.pojo.ProductExample" resultType="java.lang.Integer" >
+    select count(*) from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product
+    <set >
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productPrice != null" >
+        product_price = #{record.productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.productCount != null" >
+        product_count = #{record.productCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.productState != null" >
+        product_state = #{record.productState,jdbcType=TINYINT},
+      </if>
+      <if test="record.productIsDel != null" >
+        product_is_del = #{record.productIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="record.productTypeId != null" >
+        product_type_id = #{record.productTypeId,jdbcType=TINYINT},
+      </if>
+      <if test="record.productCreateTime != null" >
+        product_create_time = #{record.productCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productUpdateTime != null" >
+        product_update_time = #{record.productUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productImages != null" >
+        product_images = #{record.productImages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productWarehouse != null" >
+        product_warehouse = #{record.productWarehouse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product
+    set product_id = #{record.productId,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_price = #{record.productPrice,jdbcType=DOUBLE},
+      product_count = #{record.productCount,jdbcType=INTEGER},
+      product_state = #{record.productState,jdbcType=TINYINT},
+      product_is_del = #{record.productIsDel,jdbcType=TINYINT},
+      product_type_id = #{record.productTypeId,jdbcType=TINYINT},
+      product_create_time = #{record.productCreateTime,jdbcType=TIMESTAMP},
+      product_update_time = #{record.productUpdateTime,jdbcType=TIMESTAMP},
+      product_images = #{record.productImages,jdbcType=VARCHAR},
+      product_warehouse = #{record.productWarehouse,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sdut.pojo.Product" >
+    update product
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null" >
+        product_price = #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productCount != null" >
+        product_count = #{productCount,jdbcType=INTEGER},
+      </if>
+      <if test="productState != null" >
+        product_state = #{productState,jdbcType=TINYINT},
+      </if>
+      <if test="productIsDel != null" >
+        product_is_del = #{productIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="productTypeId != null" >
+        product_type_id = #{productTypeId,jdbcType=TINYINT},
+      </if>
+      <if test="productCreateTime != null" >
+        product_create_time = #{productCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productUpdateTime != null" >
+        product_update_time = #{productUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productImages != null" >
+        product_images = #{productImages,jdbcType=VARCHAR},
+      </if>
+      <if test="productWarehouse != null" >
+        product_warehouse = #{productWarehouse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sdut.pojo.Product" >
+    update product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      product_count = #{productCount,jdbcType=INTEGER},
+      product_state = #{productState,jdbcType=TINYINT},
+      product_is_del = #{productIsDel,jdbcType=TINYINT},
+      product_type_id = #{productTypeId,jdbcType=TINYINT},
+      product_create_time = #{productCreateTime,jdbcType=TIMESTAMP},
+      product_update_time = #{productUpdateTime,jdbcType=TIMESTAMP},
+      product_images = #{productImages,jdbcType=VARCHAR},
+      product_warehouse = #{productWarehouse,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

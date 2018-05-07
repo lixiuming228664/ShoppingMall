@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdut.mapper.TypeMapper" >
+  <resultMap id="BaseResultMap" type="com.sdut.pojo.Type" >
+    <id column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="type_is_del" property="typeIsDel" jdbcType="TINYINT" />
+    <result column="type_level" property="typeLevel" jdbcType="TINYINT" />
+    <result column="type_pid" property="typePid" jdbcType="INTEGER" />
+    <result column="type_param_a" property="typeParamA" jdbcType="VARCHAR" />
+    <result column="type_param_b" property="typeParamB" jdbcType="VARCHAR" />
+    <result column="type_param_c" property="typeParamC" jdbcType="VARCHAR" />
+    <result column="type_create_time" property="typeCreateTime" jdbcType="TIMESTAMP" />
+    <result column="type_update_time" property="typeUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    type_id, type_name, type_is_del, type_level, type_pid, type_param_a, type_param_b, 
+    type_param_c, type_create_time, type_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sdut.pojo.TypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sdut.pojo.TypeExample" >
+    delete from type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sdut.pojo.Type" >
+    insert into type (type_id, type_name, type_is_del, 
+      type_level, type_pid, type_param_a, 
+      type_param_b, type_param_c, type_create_time, 
+      type_update_time)
+    values (#{typeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{typeIsDel,jdbcType=TINYINT}, 
+      #{typeLevel,jdbcType=TINYINT}, #{typePid,jdbcType=INTEGER}, #{typeParamA,jdbcType=VARCHAR}, 
+      #{typeParamB,jdbcType=VARCHAR}, #{typeParamC,jdbcType=VARCHAR}, #{typeCreateTime,jdbcType=TIMESTAMP}, 
+      #{typeUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sdut.pojo.Type" >
+    insert into type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="typeIsDel != null" >
+        type_is_del,
+      </if>
+      <if test="typeLevel != null" >
+        type_level,
+      </if>
+      <if test="typePid != null" >
+        type_pid,
+      </if>
+      <if test="typeParamA != null" >
+        type_param_a,
+      </if>
+      <if test="typeParamB != null" >
+        type_param_b,
+      </if>
+      <if test="typeParamC != null" >
+        type_param_c,
+      </if>
+      <if test="typeCreateTime != null" >
+        type_create_time,
+      </if>
+      <if test="typeUpdateTime != null" >
+        type_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeIsDel != null" >
+        #{typeIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="typeLevel != null" >
+        #{typeLevel,jdbcType=TINYINT},
+      </if>
+      <if test="typePid != null" >
+        #{typePid,jdbcType=INTEGER},
+      </if>
+      <if test="typeParamA != null" >
+        #{typeParamA,jdbcType=VARCHAR},
+      </if>
+      <if test="typeParamB != null" >
+        #{typeParamB,jdbcType=VARCHAR},
+      </if>
+      <if test="typeParamC != null" >
+        #{typeParamC,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCreateTime != null" >
+        #{typeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeUpdateTime != null" >
+        #{typeUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sdut.pojo.TypeExample" resultType="java.lang.Integer" >
+    select count(*) from type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update type
+    <set >
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeName != null" >
+        type_name = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeIsDel != null" >
+        type_is_del = #{record.typeIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="record.typeLevel != null" >
+        type_level = #{record.typeLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.typePid != null" >
+        type_pid = #{record.typePid,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeParamA != null" >
+        type_param_a = #{record.typeParamA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeParamB != null" >
+        type_param_b = #{record.typeParamB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeParamC != null" >
+        type_param_c = #{record.typeParamC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeCreateTime != null" >
+        type_create_time = #{record.typeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.typeUpdateTime != null" >
+        type_update_time = #{record.typeUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update type
+    set type_id = #{record.typeId,jdbcType=INTEGER},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      type_is_del = #{record.typeIsDel,jdbcType=TINYINT},
+      type_level = #{record.typeLevel,jdbcType=TINYINT},
+      type_pid = #{record.typePid,jdbcType=INTEGER},
+      type_param_a = #{record.typeParamA,jdbcType=VARCHAR},
+      type_param_b = #{record.typeParamB,jdbcType=VARCHAR},
+      type_param_c = #{record.typeParamC,jdbcType=VARCHAR},
+      type_create_time = #{record.typeCreateTime,jdbcType=TIMESTAMP},
+      type_update_time = #{record.typeUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sdut.pojo.Type" >
+    update type
+    <set >
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeIsDel != null" >
+        type_is_del = #{typeIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="typeLevel != null" >
+        type_level = #{typeLevel,jdbcType=TINYINT},
+      </if>
+      <if test="typePid != null" >
+        type_pid = #{typePid,jdbcType=INTEGER},
+      </if>
+      <if test="typeParamA != null" >
+        type_param_a = #{typeParamA,jdbcType=VARCHAR},
+      </if>
+      <if test="typeParamB != null" >
+        type_param_b = #{typeParamB,jdbcType=VARCHAR},
+      </if>
+      <if test="typeParamC != null" >
+        type_param_c = #{typeParamC,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCreateTime != null" >
+        type_create_time = #{typeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeUpdateTime != null" >
+        type_update_time = #{typeUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sdut.pojo.Type" >
+    update type
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      type_is_del = #{typeIsDel,jdbcType=TINYINT},
+      type_level = #{typeLevel,jdbcType=TINYINT},
+      type_pid = #{typePid,jdbcType=INTEGER},
+      type_param_a = #{typeParamA,jdbcType=VARCHAR},
+      type_param_b = #{typeParamB,jdbcType=VARCHAR},
+      type_param_c = #{typeParamC,jdbcType=VARCHAR},
+      type_create_time = #{typeCreateTime,jdbcType=TIMESTAMP},
+      type_update_time = #{typeUpdateTime,jdbcType=TIMESTAMP}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+</mapper>

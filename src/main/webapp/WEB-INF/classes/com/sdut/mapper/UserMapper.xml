@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdut.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.sdut.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_create_time" property="userCreateTime" jdbcType="TIMESTAMP" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_salt" property="userSalt" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
+    <result column="user_mailbox" property="userMailbox" jdbcType="VARCHAR" />
+    <result column="user_update_time" property="userUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="user_handle_admin_id" property="userHandleAdminId" jdbcType="INTEGER" />
+    <result column="user_handle_admin_time" property="userHandleAdminTime" jdbcType="TIMESTAMP" />
+    <result column="user_state" property="userState" jdbcType="TINYINT" />
+    <result column="user_is_del" property="userIsDel" jdbcType="TINYINT" />
+    <result column="user_exp" property="userExp" jdbcType="DOUBLE" />
+    <result column="user_level" property="userLevel" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, user_nickname, user_create_time, user_account, user_salt, user_password, 
+    user_mobile, user_mailbox, user_update_time, user_handle_admin_id, user_handle_admin_time, 
+    user_state, user_is_del, user_exp, user_level
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sdut.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sdut.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sdut.pojo.User" >
+    insert into user (user_id, user_nickname, user_create_time, 
+      user_account, user_salt, user_password, 
+      user_mobile, user_mailbox, user_update_time, 
+      user_handle_admin_id, user_handle_admin_time, 
+      user_state, user_is_del, user_exp, 
+      user_level)
+    values (#{userId,jdbcType=INTEGER}, #{userNickname,jdbcType=VARCHAR}, #{userCreateTime,jdbcType=TIMESTAMP}, 
+      #{userAccount,jdbcType=VARCHAR}, #{userSalt,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userMobile,jdbcType=VARCHAR}, #{userMailbox,jdbcType=VARCHAR}, #{userUpdateTime,jdbcType=TIMESTAMP}, 
+      #{userHandleAdminId,jdbcType=INTEGER}, #{userHandleAdminTime,jdbcType=TIMESTAMP}, 
+      #{userState,jdbcType=TINYINT}, #{userIsDel,jdbcType=TINYINT}, #{userExp,jdbcType=DOUBLE}, 
+      #{userLevel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sdut.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userNickname != null" >
+        user_nickname,
+      </if>
+      <if test="userCreateTime != null" >
+        user_create_time,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="userSalt != null" >
+        user_salt,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userMobile != null" >
+        user_mobile,
+      </if>
+      <if test="userMailbox != null" >
+        user_mailbox,
+      </if>
+      <if test="userUpdateTime != null" >
+        user_update_time,
+      </if>
+      <if test="userHandleAdminId != null" >
+        user_handle_admin_id,
+      </if>
+      <if test="userHandleAdminTime != null" >
+        user_handle_admin_time,
+      </if>
+      <if test="userState != null" >
+        user_state,
+      </if>
+      <if test="userIsDel != null" >
+        user_is_del,
+      </if>
+      <if test="userExp != null" >
+        user_exp,
+      </if>
+      <if test="userLevel != null" >
+        user_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreateTime != null" >
+        #{userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userSalt != null" >
+        #{userSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMailbox != null" >
+        #{userMailbox,jdbcType=VARCHAR},
+      </if>
+      <if test="userUpdateTime != null" >
+        #{userUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userHandleAdminId != null" >
+        #{userHandleAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="userHandleAdminTime != null" >
+        #{userHandleAdminTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userState != null" >
+        #{userState,jdbcType=TINYINT},
+      </if>
+      <if test="userIsDel != null" >
+        #{userIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="userExp != null" >
+        #{userExp,jdbcType=DOUBLE},
+      </if>
+      <if test="userLevel != null" >
+        #{userLevel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sdut.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNickname != null" >
+        user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCreateTime != null" >
+        user_create_time = #{record.userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userAccount != null" >
+        user_account = #{record.userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSalt != null" >
+        user_salt = #{record.userSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null" >
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMobile != null" >
+        user_mobile = #{record.userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMailbox != null" >
+        user_mailbox = #{record.userMailbox,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userUpdateTime != null" >
+        user_update_time = #{record.userUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userHandleAdminId != null" >
+        user_handle_admin_id = #{record.userHandleAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userHandleAdminTime != null" >
+        user_handle_admin_time = #{record.userHandleAdminTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userState != null" >
+        user_state = #{record.userState,jdbcType=TINYINT},
+      </if>
+      <if test="record.userIsDel != null" >
+        user_is_del = #{record.userIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="record.userExp != null" >
+        user_exp = #{record.userExp,jdbcType=DOUBLE},
+      </if>
+      <if test="record.userLevel != null" >
+        user_level = #{record.userLevel,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      user_create_time = #{record.userCreateTime,jdbcType=TIMESTAMP},
+      user_account = #{record.userAccount,jdbcType=VARCHAR},
+      user_salt = #{record.userSalt,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_mobile = #{record.userMobile,jdbcType=VARCHAR},
+      user_mailbox = #{record.userMailbox,jdbcType=VARCHAR},
+      user_update_time = #{record.userUpdateTime,jdbcType=TIMESTAMP},
+      user_handle_admin_id = #{record.userHandleAdminId,jdbcType=INTEGER},
+      user_handle_admin_time = #{record.userHandleAdminTime,jdbcType=TIMESTAMP},
+      user_state = #{record.userState,jdbcType=TINYINT},
+      user_is_del = #{record.userIsDel,jdbcType=TINYINT},
+      user_exp = #{record.userExp,jdbcType=DOUBLE},
+      user_level = #{record.userLevel,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sdut.pojo.User" >
+    update user
+    <set >
+      <if test="userNickname != null" >
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreateTime != null" >
+        user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userSalt != null" >
+        user_salt = #{userSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMailbox != null" >
+        user_mailbox = #{userMailbox,jdbcType=VARCHAR},
+      </if>
+      <if test="userUpdateTime != null" >
+        user_update_time = #{userUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userHandleAdminId != null" >
+        user_handle_admin_id = #{userHandleAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="userHandleAdminTime != null" >
+        user_handle_admin_time = #{userHandleAdminTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userState != null" >
+        user_state = #{userState,jdbcType=TINYINT},
+      </if>
+      <if test="userIsDel != null" >
+        user_is_del = #{userIsDel,jdbcType=TINYINT},
+      </if>
+      <if test="userExp != null" >
+        user_exp = #{userExp,jdbcType=DOUBLE},
+      </if>
+      <if test="userLevel != null" >
+        user_level = #{userLevel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sdut.pojo.User" >
+    update user
+    set user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_create_time = #{userCreateTime,jdbcType=TIMESTAMP},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_salt = #{userSalt,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_mailbox = #{userMailbox,jdbcType=VARCHAR},
+      user_update_time = #{userUpdateTime,jdbcType=TIMESTAMP},
+      user_handle_admin_id = #{userHandleAdminId,jdbcType=INTEGER},
+      user_handle_admin_time = #{userHandleAdminTime,jdbcType=TIMESTAMP},
+      user_state = #{userState,jdbcType=TINYINT},
+      user_is_del = #{userIsDel,jdbcType=TINYINT},
+      user_exp = #{userExp,jdbcType=DOUBLE},
+      user_level = #{userLevel,jdbcType=TINYINT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
